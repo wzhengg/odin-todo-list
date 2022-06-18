@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap');
+
 :root {
     font-size: 16px;
-    --header-bg: #404040;
-    --sidebar-bg: #f3f4f6;
-    --content-bg: #f9fafb;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --neutral-700: #404040;
 }
 
 html, body {
@@ -10,6 +12,7 @@ html, body {
 }
 
 body {
+    font-family: 'Ubuntu', sans-serif;
     margin: 0;
     display: grid;
     grid-template-rows: 50px 1fr;
@@ -18,13 +21,22 @@ body {
 
 #header {
     grid-column: 1 / -1;
-    background-color: var(--header-bg);
+    display: flex;
+    align-items: center;
+    background-color: var(--neutral-700);
+    padding: 0 30px;
+}
+
+#header > div {
+    color: var(--gray-100);
+    font-size: 32px;
+    font-weight: 500;
 }
 
 #sidebar {
-    background-color: var(--sidebar-bg);
+    background-color: var(--gray-100);
 }
 
 #content {
-    background-color: var(--content-bg);
+    background-color: var(--gray-50);
 }
