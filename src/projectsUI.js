@@ -1,27 +1,36 @@
 import PubSub from 'pubsub-js';
 import { ADD_PROJECT, CLICK_NEW_PROJECT } from './topics';
-import { projects, newProjectButton } from './dom';
+import { projectsContainer, addProjectButton } from './dom';
 
 function init() {
-    PubSub.subscribe(ADD_PROJECT, render);
-    
     bindPlusButton();
+
+    PubSub.subscribe(ADD_PROJECT, render);
 }
 
 function render(topic, project) {
     const projectLabel = document.createElement('div');
     projectLabel.classList.add('project');
     projectLabel.textContent = project.name;
-    projects.appendChild(projectLabel);
+    projectsContainer.appendChild(projectLabel);
 }
 
 function bindPlusButton() {
-    newProjectButton.addEventListener('click', promptProjectName);
+    addProjectButton.addEventListener('click', promptProjectName);
 }
 
 function promptProjectName() {
-    const projectName = prompt('Name:');
-    PubSub.publish(CLICK_NEW_PROJECT, projectName);
+    let name;
+    
+    do {
+        name = prompt('Name of project:');
+
+        if (name === null) {
+            return;
+        }
+    } while (name === '');
+
+    PubSub.publish(CLICK_NEW_PROJECT, name);
 }
 
 export { init as initProjectsUI };
