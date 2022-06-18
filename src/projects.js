@@ -1,23 +1,28 @@
 import PubSub from 'pubsub-js';
-import { NEW_PROJECT } from './topics';
+import { ADD_PROJECT, CLICK_NEW_PROJECT } from './topics';
 import Project from './project';
 
 const projects = [];
 
-export function initProjects() {
-    const defaultProject = new Project('Default');
+function init() {
+    const defaultProject = new Project('All todos');
     add(defaultProject);
+
+    PubSub.subscribe(CLICK_NEW_PROJECT, create);
 }
 
-export function getProjects() {
-    return projects;
+function create(topic, name) {
+    const project = new Project(name);
+    add(project);
 }
 
-export function add(project) {
+function add(project) {
     projects.push(project);
-    PubSub.publish(NEW_PROJECT, project);
+    PubSub.publish(ADD_PROJECT, project);
 }
 
-export function remove(index) {
+function remove(index) {
     projects.splice(index, 1);
 }
+
+export { init as initProjects };
