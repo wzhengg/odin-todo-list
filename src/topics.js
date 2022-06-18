@@ -1,1 +1,2 @@
-export const NEW_PROJECT = 'NEW_PROJECT';
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const CLICK_NEW_PROJECT = 'CLICK_NEW_PROJECT';
