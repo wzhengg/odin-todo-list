@@ -1,10 +1,12 @@
+import PubSub from 'pubsub-js';
+import { NEW_PROJECT } from './topics';
 import Project from './project';
 
 const projects = (() => {
     const _projects = [];
 
     const _defaultProject = new Project('Default');
-    _projects.push(_defaultProject);
+    add(_defaultProject);
 
     function getProjects() {
         return _projects;
@@ -12,6 +14,7 @@ const projects = (() => {
 
     function add(project) {
         _projects.push(project);
+        PubSub.publish(NEW_PROJECT, project);
     }
 
     function remove(index) {
