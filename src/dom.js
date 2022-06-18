@@ -1,1 +1,1 @@
-export const sidebar = document.querySelector('#sidebar');
+export const projects = document.querySelector('#projects');
