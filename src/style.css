@@ -1,0 +1,30 @@
+:root {
+    font-size: 16px;
+    --header-bg: #404040;
+    --sidebar-bg: #f3f4f6;
+    --content-bg: #f9fafb;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: 250px 1fr;
+}
+
+#header {
+    grid-column: 1 / -1;
+    background-color: var(--header-bg);
+}
+
+#sidebar {
+    background-color: var(--sidebar-bg);
+}
+
+#content {
+    background-color: var(--content-bg);
+}
