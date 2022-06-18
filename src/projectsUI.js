@@ -28,10 +28,21 @@ function promptProjectName() {
 }
 
 function render(topic, project) {
-    const projectLabel = document.createElement('div');
-    projectLabel.classList.add('project');
-    projectLabel.textContent = project.name;
-    projectsContainer.appendChild(projectLabel);
+    const projectDiv = document.createElement('div');
+    projectDiv.classList.add('project');
+
+    const projectName = document.createElement('div');
+    projectName.classList.add('name');
+    projectName.textContent = project.name;
+
+    const deleteButton = document.createElement('button');
+    deleteButton.setAttribute('type', 'button');
+    deleteButton.textContent = 'X';
+    deleteButton.addEventListener('click', () => console.log('clicked')); // TEST
+
+    projectDiv.appendChild(projectName);
+    projectDiv.appendChild(deleteButton);
+    projectsContainer.appendChild(projectDiv);
 }
 
 function alertNameExists(topic, name) {
