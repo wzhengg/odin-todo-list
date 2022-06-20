@@ -1,2 +1,3 @@
-export const projectsContainer = document.querySelector('#projects');
-export const addProjectButton = document.querySelector('#sidebar #add-project');
+// Sidebar elements
+export const projectsDiv = document.querySelector('#projects');
+export const createProjectButton = document.querySelector('#sidebar #add-project');
