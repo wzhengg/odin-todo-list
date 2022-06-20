@@ -1,12 +1,13 @@
 import PubSub from 'pubsub-js';
-import { ADD_PROJECT, CLICK_NEW_PROJECT, PROJECT_NAME_EXISTS } from './topics';
-import { projectsContainer, addProjectButton } from './dom';
+import { ADD_PROJECT, CLICK_REMOVE_PROJECT, CLICK_NEW_PROJECT, PROJECT_NAME_EXISTS, REMOVE_PROJECT } from './topics';
+import { projectsDiv, addProjectButton } from './dom';
 
 function init() {
     bindPlusButton();
 
     PubSub.subscribe(ADD_PROJECT, render);
     PubSub.subscribe(PROJECT_NAME_EXISTS, alertNameExists);
+    PubSub.subscribe(REMOVE_PROJECT, remove);
 }
 
 function bindPlusButton() {
@@ -30,6 +31,7 @@ function promptProjectName() {
 function render(topic, project) {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
+    projectDiv.setAttribute('data-name', project.name);
 
     const projectName = document.createElement('div');
     projectName.classList.add('name');
@@ -38,11 +40,22 @@ function render(topic, project) {
     const deleteButton = document.createElement('button');
     deleteButton.setAttribute('type', 'button');
     deleteButton.textContent = 'X';
-    deleteButton.addEventListener('click', () => console.log('clicked')); // TEST
+    deleteButton.addEventListener('click', publishRemove);
 
     projectDiv.appendChild(projectName);
     projectDiv.appendChild(deleteButton);
-    projectsContainer.appendChild(projectDiv);
+    projectsDiv.appendChild(projectDiv);
+}
+
+function publishRemove(e) {
+    const parentDiv = e.target.parentNode;
+    const projectName = parentDiv.dataset.name;
+    PubSub.publish(CLICK_REMOVE_PROJECT, projectName);
+}
+
+function remove(topic, name) {
+    const label = projectsDiv.querySelector(`[data-name="${name}"]`)
+    projectsDiv.removeChild(label);
 }
 
 function alertNameExists(topic, name) {
