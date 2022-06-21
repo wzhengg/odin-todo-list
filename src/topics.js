@@ -1,6 +1,7 @@
-// projects.js, projectsUI.js
 export const ADD_PROJECT = 'ADD_PROJECT';
+export const ADD_TODO = 'ADD_TODO';
 export const CLICK_CREATE_PROJECT = 'CLICK_CREATE_PROJECT';
+export const CLICK_CREATE_TODO = 'CLICK_CREATE_TODO';
 export const CLICK_REMOVE_PROJECT = 'CLICK_REMOVE_PROJECT';
 export const PROJECT_NAME_EXISTS = 'PROJECT_NAME_EXISTS';
 export const REMOVE_PROJECT = 'REMOVE_PROJECT';
