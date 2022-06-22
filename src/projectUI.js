@@ -1,14 +1,17 @@
 import PubSub from 'pubsub-js';
-import { ADD_TODO, CLICK_CREATE_TODO } from './topics';
+import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, REMOVE_PROJECT, SELECT_PROJECT } from './topics';
 import { projectTitleDiv, todosDiv, createTodoButton } from './dom';
 
 const projectContainers = [];
 
 function init() {
+    PubSub.subscribe(ADD_PROJECT, createProjectContainer);
+    PubSub.subscribe(SELECT_PROJECT, renderProject);
+    PubSub.subscribe(REMOVE_PROJECT, removeContainer);
+    PubSub.subscribe(ADD_TODO, renderTodo);
+
     renderTitle();
     bindCreateTodoButton();
-
-    PubSub.subscribe(ADD_TODO, renderTodo);
 }
 
 function renderTitle() {
@@ -33,6 +36,37 @@ function promptTodoName() {
     } while (name === '');
 
     PubSub.publish(CLICK_CREATE_TODO, name);
+}
+
+function createProjectContainer(topic, project) {
+    const projectContainer = document.createElement('div');
+    projectContainer.setAttribute('data-name', project.name);
+    projectContainers.push(projectContainer);
+    projectContainers.forEach(p => console.log(p.dataset.name)); // DEBUG
+}
+
+function renderProject(topic, project) {
+    clearProjectContainer();
+    const projectDiv = getProjectDiv(project.name);
+    todosDiv.appendChild(projectDiv);
+}
+
+function clearProjectContainer() {
+    const currentProjectDiv = todosDiv.querySelector('div');
+    if (currentProjectDiv === null) {
+        return;
+    }
+    todosDiv.removeChild(currentProjectDiv);
+}
+
+function getProjectDiv(name) {
+    return projectContainers.find(container => container.dataset.name === name);
+}
+
+function removeContainer(topic, name) {
+    const i = projectContainers.findIndex(p => p.dataset.name === name);
+    projectContainers.splice(i, 1);
+    projectContainers.forEach(p => console.log(p.dataset.name)); // DEBUG
 }
 
 function renderTodo(topic, todo) {
