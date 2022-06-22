@@ -6,6 +6,7 @@ const projectContainers = [];
 
 function init() {
     PubSub.subscribe(ADD_PROJECT, createProjectContainer);
+    PubSub.subscribe(SELECT_PROJECT, updateTitle);
     PubSub.subscribe(SELECT_PROJECT, renderProject);
     PubSub.subscribe(REMOVE_PROJECT, removeContainer);
     PubSub.subscribe(ADD_TODO, renderTodo);
@@ -43,6 +44,11 @@ function createProjectContainer(topic, project) {
     projectContainer.setAttribute('data-name', project.name);
     projectContainers.push(projectContainer);
     projectContainers.forEach(p => console.log(p.dataset.name)); // DEBUG
+}
+
+function updateTitle(topic, project) {
+    const title = projectTitleDiv.querySelector('div');
+    title.textContent = project.name;
 }
 
 function renderProject(topic, project) {
