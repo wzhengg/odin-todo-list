@@ -3,12 +3,14 @@ export default class Todo {
     #description;
     #dueDate;
     #priority;
+    #id;
 
-    constructor(title, description, dueDate, priority) {
+    constructor(title, description, dueDate, priority, id) {
         this.#title = title;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
+        this.#id = id;
     }
 
     get title() {
@@ -41,5 +43,13 @@ export default class Todo {
 
     set priority(newPriority) {
         this.#priority = newPriority;
+    }
+
+    get id() {
+        return this.#id;
+    }
+
+    set id(newID) {
+        this.#id = newID;
     }
 }
