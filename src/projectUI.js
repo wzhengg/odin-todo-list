@@ -1,5 +1,5 @@
 import PubSub from 'pubsub-js';
-import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, REMOVE_PROJECT, SELECT_PROJECT } from './topics';
+import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO, REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT } from './topics';
 import { projectTitleDiv, todosDiv, createTodoButton } from './dom';
 
 const projectContainers = [];
@@ -10,6 +10,7 @@ function init() {
     PubSub.subscribe(SELECT_PROJECT, renderProject);
     PubSub.subscribe(REMOVE_PROJECT, removeContainer);
     PubSub.subscribe(ADD_TODO, renderTodo);
+    PubSub.subscribe(REMOVE_TODO, removeTodo);
 
     renderTitle();
     bindCreateTodoButton();
@@ -88,6 +89,7 @@ function removeContainer(topic, name) {
 function renderTodo(topic, data) {
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
+    todoDiv.dataset.id = data.todo.id;
 
     // Fill later
     const img = new Image();
@@ -116,12 +118,24 @@ function renderTodo(topic, data) {
     removeButton.type = 'button';
     removeButton.classList.add('remove-todo');
     removeButton.textContent = 'X';
+    removeButton.addEventListener('click', publishRemoveTodo);
 
     todoDiv.append(img, todoTitle, date, spacer, editButton, removeButton);
-    // projectContainers[0].appendChild(todoDiv);
 
     const i = projectContainers.findIndex(div => div.dataset.name === data.project.name);
     projectContainers[i].appendChild(todoDiv);
+}
+
+function publishRemoveTodo(e) {
+    const parent = e.target.parentNode;
+    const id = parent.dataset.id;
+    PubSub.publish(CLICK_REMOVE_TODO, id);
+}
+
+function removeTodo(topic, id) {
+    const todos = todosDiv.querySelector('div');
+    const todo = todos.querySelector(`[data-id="${id}"`);
+    todos.removeChild(todo);
 }
 
 export { init as initProjectUI };

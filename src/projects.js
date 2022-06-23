@@ -1,5 +1,5 @@
 import PubSub from 'pubsub-js';
-import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_PROJECT, CLICK_CREATE_TODO, CLICK_PROJECT_LABEL, CLICK_REMOVE_PROJECT, PROJECT_NAME_EXISTS, REMOVE_PROJECT, SELECT_PROJECT } from './topics';
+import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_PROJECT, CLICK_CREATE_TODO, CLICK_PROJECT_LABEL, CLICK_REMOVE_PROJECT, CLICK_REMOVE_TODO, PROJECT_NAME_EXISTS, REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT } from './topics';
 import Project from './project';
 import Todo from './todo';
 
@@ -15,6 +15,7 @@ function init() {
     PubSub.subscribe(CLICK_REMOVE_PROJECT, removeProject);
     PubSub.subscribe(CLICK_PROJECT_LABEL, selectProject);
     PubSub.subscribe(CLICK_CREATE_TODO, createTodo);
+    PubSub.subscribe(CLICK_REMOVE_TODO, removeTodo);
 }
 
 function createProject(topic, name) {
@@ -58,13 +59,18 @@ function selectProject(topic, name) {
 }
 
 function createTodo(topic, name) {
-    const todo = new Todo(name, '', '', '');
+    const todo = new Todo(name, '', '', '', self.crypto.randomUUID());
     addTodo(todo);
 }
 
 function addTodo(todo) {
     selectedProject.add(todo);
     PubSub.publish(ADD_TODO, { todo: todo, project: selectedProject });
+}
+
+function removeTodo(topic, id) {
+    selectedProject.remove(id);
+    PubSub.publish(REMOVE_TODO, id);
 }
 
 export { init as initProjects };
