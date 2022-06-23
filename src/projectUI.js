@@ -43,7 +43,10 @@ function createProjectContainer(topic, project) {
     const projectContainer = document.createElement('div');
     projectContainer.setAttribute('data-name', project.name);
     projectContainers.push(projectContainer);
-    projectContainers.forEach(p => console.log(p.dataset.name)); // DEBUG
+
+    if (createTodoButton.style.display === 'none') {
+        createTodoButton.style.display = 'block';
+    }
 }
 
 function updateTitle(topic, project) {
@@ -72,10 +75,20 @@ function getProjectDiv(name) {
 function removeContainer(topic, name) {
     const i = projectContainers.findIndex(p => p.dataset.name === name);
     projectContainers.splice(i, 1);
-    projectContainers.forEach(p => console.log(p.dataset.name)); // DEBUG
+
+    if (projectContainers.length === 0) {
+        clearProjectContainer();
+        createTodoButton.style.display = 'none';
+
+        const title = projectTitleDiv.querySelector('div');
+        title.textContent = 'Create a project to add todos';
+    }
 }
 
-function renderTodo(topic, todo) {
+function renderTodo(topic, data) {
+    console.log(data.todo);
+    console.log(data.project);
+
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
 
@@ -86,7 +99,7 @@ function renderTodo(topic, todo) {
 
     const todoTitle = document.createElement('div');
     todoTitle.classList.add('name');
-    todoTitle.textContent = todo.title;
+    todoTitle.textContent = data.todo.title;
 
     // Fill later
     const date = document.createElement('div');
@@ -106,7 +119,10 @@ function renderTodo(topic, todo) {
     removeButton.textContent = 'X';
 
     todoDiv.append(img, todoTitle, date, spacer, editButton, removeButton);
-    todosDiv.appendChild(todoDiv);
+    // projectContainers[0].appendChild(todoDiv);
+
+    const i = projectContainers.findIndex(div => div.dataset.name === data.project.name);
+    projectContainers[i].appendChild(todoDiv);
 }
 
 export { init as initProjectUI };

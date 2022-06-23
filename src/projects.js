@@ -38,12 +38,17 @@ function projectExists(name) {
 function addProject(project) {
     projects.push(project);
     PubSub.publish(ADD_PROJECT, project);
+    selectProject(CLICK_PROJECT_LABEL, project.name);
 }
 
 function removeProject(topic, name) {
     const i = projects.findIndex(proj => proj.name === name);
-    projects.splice(i, 1);
+    const removed = projects.splice(i, 1);
     PubSub.publish(REMOVE_PROJECT, name);
+
+    if (removed[0].name === name && projects.length !== 0) {
+        selectProject(CLICK_PROJECT_LABEL, projects[0].name);
+    }
 }
 
 function selectProject(topic, name) {
@@ -58,8 +63,8 @@ function createTodo(topic, name) {
 }
 
 function addTodo(todo) {
-    projects[0].add(todo);
-    PubSub.publish(ADD_TODO, todo);
+    selectedProject.add(todo);
+    PubSub.publish(ADD_TODO, { todo: todo, project: selectedProject });
 }
 
 export { init as initProjects };
