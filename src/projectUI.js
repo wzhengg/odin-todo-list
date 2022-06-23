@@ -86,9 +86,6 @@ function removeContainer(topic, name) {
 }
 
 function renderTodo(topic, data) {
-    console.log(data.todo);
-    console.log(data.project);
-
     const todoDiv = document.createElement('div');
     todoDiv.classList.add('todo');
 
@@ -112,10 +109,12 @@ function renderTodo(topic, data) {
 
     const editButton = document.createElement('button');
     editButton.type = 'button';
+    editButton.classList.add('edit-todo');
     editButton.textContent = 'E';
 
     const removeButton = document.createElement('button');
     removeButton.type = 'button';
+    removeButton.classList.add('remove-todo');
     removeButton.textContent = 'X';
 
     todoDiv.append(img, todoTitle, date, spacer, editButton, removeButton);
