@@ -10,6 +10,8 @@
     --gray-600: #4b5563;
     --gray-700: #374151;
     --neutral-700: #404040;
+    --red-700: #f87171;
+    --orange-300: #fdba74;
 }
 
 html, body {
@@ -90,7 +92,7 @@ body {
 }
 
 #sidebar button:hover {
-    background-color: #f87171;
+    background-color: var(--red-700);
     color: var(--gray-100);
 }
 
@@ -154,6 +156,24 @@ body {
 
 #content .spacer {
     flex: 1;
+}
+
+#content .edit-todo,
+#content .remove-todo {
+    background-color: var(--gray-50);
+    border: none;
+    border-radius: 4px;
+    color: var(--gray-400);
+}
+
+#content .edit-todo:hover {
+    background-color: var(--orange-300);
+    color: var(--gray-100);
+}
+
+#content .remove-todo:hover {
+    background-color: var(--red-700);
+    color: var(--gray-100);
 }
 
 #content .todo:hover,
