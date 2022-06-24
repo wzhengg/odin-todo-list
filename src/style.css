@@ -57,7 +57,7 @@ body {
 }
 
 #sidebar .project,
-#sidebar #add-project {
+#sidebar #create-project {
     padding: 5px;
     color: var(--gray-600);
     font-size: var(--project-label-size);
@@ -72,7 +72,7 @@ body {
 }
 
 #sidebar .project:hover,
-#sidebar #add-project:hover {
+#sidebar #create-project:hover {
     background-color: var(--gray-200);
 }
 
@@ -96,12 +96,12 @@ body {
     color: var(--gray-100);
 }
 
-#sidebar #add-project {
+#sidebar #create-project {
     text-align: center;
     color: var(--gray-400);
 }
 
-#content {
+#main-section {
     /* max-width: 100%; */
     background-color: var(--gray-50);
     display: flex;
@@ -110,7 +110,7 @@ body {
     padding: 10px 150px;
 }
 
-#content #title-container {
+#main-section #title-container {
     display: grid;
     place-content: center;
     padding: 20px 0;
@@ -128,8 +128,8 @@ body {
     /* gap: 5px; */
 }
 
-#content .todo,
-#content #add-todo {
+#main-section .todo,
+#main-section #create-todo {
     padding: 10px;
     color: var(--gray-600);
     font-size: 1.4rem;
@@ -139,49 +139,49 @@ body {
     /* box-shadow: 0 0 3px 3px var(--gray-100); */
 }
 
-#content .todo {
+#main-section .todo {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-#content .name {
+#main-section .name {
     /* flex: 1; */
     overflow: hidden;
 }
 
-#content .date {
+#main-section .date {
     font-size: 1rem;
 }
 
-#content .spacer {
+#main-section .spacer {
     flex: 1;
 }
 
-#content .edit-todo,
-#content .remove-todo {
+#main-section .edit-todo,
+#main-section .remove-todo {
     background-color: var(--gray-50);
     border: none;
     border-radius: 4px;
     color: var(--gray-400);
 }
 
-#content .edit-todo:hover {
+#main-section .edit-todo:hover {
     background-color: var(--orange-300);
     color: var(--gray-100);
 }
 
-#content .remove-todo:hover {
+#main-section .remove-todo:hover {
     background-color: var(--red-700);
     color: var(--gray-100);
 }
 
-#content .todo:hover,
-#content #add-todo:hover {
+#main-section .todo:hover,
+#main-section #create-todo:hover {
     background-color: var(--gray-100);
 }
 
-#content #add-todo {
+#main-section #create-todo {
     text-align: center;
     color: var(--gray-400);
 }
