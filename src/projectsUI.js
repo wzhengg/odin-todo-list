@@ -34,8 +34,8 @@ function promptProjectName() {
 function render(topic, project) {
     const projectDiv = document.createElement('div');
     projectDiv.classList.add('project');
-    projectDiv.setAttribute('data-name', project.name);
-    projectDiv.addEventListener('click', publishSelectedProject);
+    projectDiv.dataset.id = project.id;
+    projectDiv.addEventListener('click', publishClickedProject);
 
     const nameDiv = document.createElement('div');
     nameDiv.classList.add('name');
@@ -50,24 +50,22 @@ function render(topic, project) {
     projectsDiv.appendChild(projectDiv);
 }
 
-function publishSelectedProject(e) {
+function publishClickedProject(e) {
     if (e.target.type === 'button') {
         return;
     }
 
-    let label = e.target;
-    if (label.classList.contains('name')) {
-        label = label.parentNode;
+    let project = e.target;
+    if (project.classList.contains('name')) {
+        project = project.parentNode;
     }
 
-    const name = label.dataset.name;
-    PubSub.publish(CLICK_PROJECT_LABEL, name);
+    PubSub.publish(CLICK_PROJECT_LABEL, project.dataset.id);
 }
 
 function publishRemove(e) {
-    const parentDiv = e.target.parentNode;
-    const name = parentDiv.dataset.name;
-    PubSub.publish(CLICK_REMOVE_PROJECT, name);
+    const parent = e.target.parentNode;
+    PubSub.publish(CLICK_REMOVE_PROJECT, parent.dataset.id);
 }
 
 function alertNameExists(topic, name) {
@@ -75,7 +73,7 @@ function alertNameExists(topic, name) {
 }
 
 function remove(topic, project) {
-    const label = projectsDiv.querySelector(`[data-name="${project.name}"]`)
+    const label = projectsDiv.querySelector(`[data-id="${project.id}"]`)
     projectsDiv.removeChild(label);
 }
 

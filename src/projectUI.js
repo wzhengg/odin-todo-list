@@ -44,7 +44,7 @@ function promptTodoName() {
 
 function createProjectContainer(topic, project) {
     const projectContainer = document.createElement('div');
-    projectContainer.dataset.name = project.name;
+    projectContainer.dataset.id = project.id;
     projectContainers.push(projectContainer);
     createTodoButton.style.display = 'block';
 }
@@ -56,7 +56,7 @@ function updateTitle(topic, project) {
 
 function renderProject(topic, project) {
     clearProjectContainer();
-    const projectDiv = projectContainers.find(obj => obj.dataset.name === project.name);
+    const projectDiv = projectContainers.find(obj => obj.dataset.id === project.id);
     todosDiv.appendChild(projectDiv);
 }
 
@@ -71,7 +71,7 @@ function clearProjectContainer() {
 }
 
 function removeContainer(topic, project) {
-    const i = projectContainers.findIndex(obj => obj.dataset.name === project.name);
+    const i = projectContainers.findIndex(obj => obj.dataset.id === project.id);
     projectContainers.splice(i, 1);
 
     if (projectContainers.length === 0) {
@@ -119,7 +119,7 @@ function renderTodo(topic, data) {
 
     todoDiv.append(img, todoName, date, spacer, editButton, removeButton);
 
-    const container = projectContainers.find(obj => obj.dataset.name === data.project.name);
+    const container = projectContainers.find(obj => obj.dataset.id === data.project.id);
     container.appendChild(todoDiv);
 }
 

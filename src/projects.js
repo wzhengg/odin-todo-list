@@ -26,9 +26,9 @@ function createProject(topic, name) {
         return;
     }
     
-    const project = new Project(name);
+    const project = new Project(name, self.crypto.randomUUID());
     addProject(project);
-    selectProject(EMPTY_MSG, name);
+    selectProject(EMPTY_MSG, project.id);
 }
 
 function projectExists(name) {
@@ -39,21 +39,21 @@ function projectExists(name) {
 function addProject(project) {
     projects.push(project);
     PubSub.publish(ADD_PROJECT, project);
-    selectProject(EMPTY_MSG, project.name);
+    selectProject(EMPTY_MSG, project.id);
 }
 
-function removeProject(topic, name) {
-    const i = projects.findIndex(obj => obj.name === name);
+function removeProject(topic, id) {
+    const i = projects.findIndex(obj => obj.id === id);
     const removed = projects.splice(i, 1).at(0);
     PubSub.publish(REMOVE_PROJECT, removed);
 
-    if (removed.name === selectedProject.name && projects.length > 0) {
-        selectProject(EMPTY_MSG, projects[0].name);
+    if (removed.id === selectedProject.id && projects.length > 0) {
+        selectProject(EMPTY_MSG, projects[0].id);
     }
 }
 
-function selectProject(topic, name) {
-    selectedProject = projects.find(obj => obj.name === name);
+function selectProject(topic, id) {
+    selectedProject = projects.find(obj => obj.id === id);
     PubSub.publish(SELECT_PROJECT, selectedProject);
 }
 

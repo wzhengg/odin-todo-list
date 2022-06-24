@@ -1,9 +1,11 @@
 export default class Project {
     #todos = [];
     #name;
+    #id;
     
-    constructor(name) {
+    constructor(name, id) {
         this.#name = name;
+        this.#id = id;
     }
 
     get name() {
@@ -12,6 +14,14 @@ export default class Project {
 
     set name(newName) {
         this.#name = newName;
+    }
+
+    get id() {
+        return this.#id;
+    }
+
+    set id(newID) {
+        this.#id = newID;
     }
 
     add(todo) {
