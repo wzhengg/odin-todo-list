@@ -1,13 +1,16 @@
 import PubSub from 'pubsub-js';
-import { ADD_PROJECT, CLICK_CREATE_PROJECT, CLICK_PROJECT_LABEL, CLICK_REMOVE_PROJECT, PROJECT_NAME_EXISTS, REMOVE_PROJECT } from './topics';
+import {
+    ADD_PROJECT, CLICK_CREATE_PROJECT, CLICK_PROJECT_LABEL,
+    CLICK_REMOVE_PROJECT, PROJECT_NAME_EXISTS, REMOVE_PROJECT
+} from './topics';
 import { projectsDiv, createProjectButton } from './dom';
 
 function init() {
-    bindCreateProjectButton();
-
     PubSub.subscribe(ADD_PROJECT, render);
     PubSub.subscribe(PROJECT_NAME_EXISTS, alertNameExists);
     PubSub.subscribe(REMOVE_PROJECT, remove);
+    
+    bindCreateProjectButton();
 }
 
 function bindCreateProjectButton() {
@@ -39,13 +42,11 @@ function render(topic, project) {
     nameDiv.textContent = project.name;
 
     const removeButton = document.createElement('button');
-    removeButton.setAttribute('type', 'button');
+    removeButton.type = 'button';
     removeButton.textContent = 'X';
     removeButton.addEventListener('click', publishRemove);
 
-    projectDiv.appendChild(nameDiv);
-    projectDiv.appendChild(removeButton);
-
+    projectDiv.append(nameDiv, removeButton);
     projectsDiv.appendChild(projectDiv);
 }
 
@@ -69,13 +70,13 @@ function publishRemove(e) {
     PubSub.publish(CLICK_REMOVE_PROJECT, name);
 }
 
-function remove(topic, name) {
-    const label = projectsDiv.querySelector(`[data-name="${name}"]`)
-    projectsDiv.removeChild(label);
-}
-
 function alertNameExists(topic, name) {
     alert(`A project with the name "${name}" already exists.`);
+}
+
+function remove(topic, project) {
+    const label = projectsDiv.querySelector(`[data-name="${project.name}"]`)
+    projectsDiv.removeChild(label);
 }
 
 export { init as initProjectsUI };

@@ -20,6 +20,6 @@ export default class Project {
 
     remove(id) {
         const i = this.#todos.findIndex(todo => todo.id === id);
-        this.#todos.splice(i, 1);
+        return this.#todos.splice(i, 1).at(0);
     }
 }

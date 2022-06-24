@@ -1,6 +1,6 @@
 // Sidebar elements
 export const projectsDiv = document.querySelector('#projects');
-export const createProjectButton = document.querySelector('#sidebar #add-project');
+export const createProjectButton = document.querySelector('#add-project');
 
 // Main content elements
 export const projectTitleDiv = document.querySelector('#title-container');

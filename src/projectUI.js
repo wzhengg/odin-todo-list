@@ -1,5 +1,8 @@
 import PubSub from 'pubsub-js';
-import { ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO, REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT } from './topics';
+import {
+    ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO,
+    REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT
+} from './topics';
 import { projectTitleDiv, todosDiv, createTodoButton } from './dom';
 
 const projectContainers = [];
@@ -12,13 +15,12 @@ function init() {
     PubSub.subscribe(ADD_TODO, renderTodo);
     PubSub.subscribe(REMOVE_TODO, removeTodo);
 
-    renderTitle();
+    createTitle();
     bindCreateTodoButton();
 }
 
-function renderTitle() {
+function createTitle() {
     const title = document.createElement('div');
-    title.textContent = 'All todos';
     projectTitleDiv.appendChild(title);
 }
 
@@ -42,12 +44,9 @@ function promptTodoName() {
 
 function createProjectContainer(topic, project) {
     const projectContainer = document.createElement('div');
-    projectContainer.setAttribute('data-name', project.name);
+    projectContainer.dataset.name = project.name;
     projectContainers.push(projectContainer);
-
-    if (createTodoButton.style.display === 'none') {
-        createTodoButton.style.display = 'block';
-    }
+    createTodoButton.style.display = 'block';
 }
 
 function updateTitle(topic, project) {
@@ -57,24 +56,22 @@ function updateTitle(topic, project) {
 
 function renderProject(topic, project) {
     clearProjectContainer();
-    const projectDiv = getProjectDiv(project.name);
+    const projectDiv = projectContainers.find(obj => obj.dataset.name === project.name);
     todosDiv.appendChild(projectDiv);
 }
 
 function clearProjectContainer() {
-    const currentProjectDiv = todosDiv.querySelector('div');
-    if (currentProjectDiv === null) {
+    const currentProject = todosDiv.querySelector('div');
+
+    if (currentProject === null) {
         return;
     }
-    todosDiv.removeChild(currentProjectDiv);
+
+    todosDiv.removeChild(currentProject);
 }
 
-function getProjectDiv(name) {
-    return projectContainers.find(container => container.dataset.name === name);
-}
-
-function removeContainer(topic, name) {
-    const i = projectContainers.findIndex(p => p.dataset.name === name);
+function removeContainer(topic, project) {
+    const i = projectContainers.findIndex(obj => obj.dataset.name === project.name);
     projectContainers.splice(i, 1);
 
     if (projectContainers.length === 0) {
@@ -96,9 +93,9 @@ function renderTodo(topic, data) {
     img.src = '';
     img.alt = '';
 
-    const todoTitle = document.createElement('div');
-    todoTitle.classList.add('name');
-    todoTitle.textContent = data.todo.title;
+    const todoName = document.createElement('div');
+    todoName.classList.add('name');
+    todoName.textContent = data.todo.name;
 
     // Fill later
     const date = document.createElement('div');
@@ -120,10 +117,10 @@ function renderTodo(topic, data) {
     removeButton.textContent = 'X';
     removeButton.addEventListener('click', publishRemoveTodo);
 
-    todoDiv.append(img, todoTitle, date, spacer, editButton, removeButton);
+    todoDiv.append(img, todoName, date, spacer, editButton, removeButton);
 
-    const i = projectContainers.findIndex(div => div.dataset.name === data.project.name);
-    projectContainers[i].appendChild(todoDiv);
+    const container = projectContainers.find(obj => obj.dataset.name === data.project.name);
+    container.appendChild(todoDiv);
 }
 
 function publishRemoveTodo(e) {
@@ -132,10 +129,10 @@ function publishRemoveTodo(e) {
     PubSub.publish(CLICK_REMOVE_TODO, id);
 }
 
-function removeTodo(topic, id) {
+function removeTodo(topic, todo) {
     const todos = todosDiv.querySelector('div');
-    const todo = todos.querySelector(`[data-id="${id}"`);
-    todos.removeChild(todo);
+    const todoDiv = todos.querySelector(`[data-id="${todo.id}"`);
+    todos.removeChild(todoDiv);
 }
 
 export { init as initProjectUI };

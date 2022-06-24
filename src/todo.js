@@ -1,24 +1,24 @@
 export default class Todo {
-    #title;
+    #name;
     #description;
     #dueDate;
     #priority;
     #id;
 
-    constructor(title, description, dueDate, priority, id) {
-        this.#title = title;
+    constructor(name, description, dueDate, priority, id) {
+        this.#name = name;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
         this.#id = id;
     }
 
-    get title() {
-        return this.#title;
+    get name() {
+        return this.#name;
     }
 
-    set title(newTitle) {
-        this.#title = newTitle;
+    set name(newName) {
+        this.#name = newName;
     }
 
     get description() {
@@ -33,8 +33,8 @@ export default class Todo {
         return this.#dueDate;
     }
 
-    set dueDate(newDueDate) {
-        this.#dueDate = newDueDate;
+    set dueDate(newDate) {
+        this.#dueDate = newDate;
     }
 
     get priority() {
