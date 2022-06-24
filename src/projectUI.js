@@ -15,14 +15,9 @@ function init() {
     PubSub.subscribe(ADD_TODO, renderTodo);
     PubSub.subscribe(REMOVE_TODO, removeTodo);
 
-    createTitle();
     bindCreateTodoButton();
 }
 
-function createTitle() {
-    const title = document.createElement('div');
-    projectTitleDiv.appendChild(title);
-}
 
 function bindCreateTodoButton() {
     createTodoButton.addEventListener('click', promptTodoName);
@@ -50,8 +45,9 @@ function createProjectContainer(topic, project) {
 }
 
 function updateTitle(topic, project) {
-    const title = projectTitleDiv.querySelector('div');
-    title.textContent = project.name;
+    // const title = projectTitleDiv.querySelector('div');
+    // title.textContent = project.name;
+    projectTitleDiv.textContent = project.name;
 }
 
 function renderProject(topic, project) {
@@ -78,8 +74,9 @@ function removeContainer(topic, project) {
         clearProjectContainer();
         createTodoButton.style.display = 'none';
 
-        const title = projectTitleDiv.querySelector('div');
-        title.textContent = 'Create a project to add todos';
+        // const title = projectTitleDiv.querySelector('div');
+        // title.textContent = 'Create a project to add todos';
+        projectTitleDiv.textContent = 'Create a project to add todos';
     }
 }
 
