@@ -192,3 +192,63 @@ body {
     text-align: center;
     color: var(--gray-400);
 }
+
+#todo-modal {
+    background-color: var(--gray-50);
+    padding: 50px;
+    border: none;
+    border-radius: 10px;
+}
+
+#todo-modal::backdrop {
+    background: rgb(0 0 0 / 0.3);
+}
+
+#todo-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.3rem;
+}
+
+#todo-modal form > div {
+    display: flex;
+    gap: 3px 10px;
+}
+
+#todo-modal form > div:nth-child(2) {
+    flex-direction: column;
+}
+
+#todo-modal input,
+#todo-modal textarea {
+    font-family: 'Roboto', sans-serif;
+    flex: 1;
+}
+
+#todo-modal textarea {
+    resize: none;
+}
+
+#todo-modal form > div:last-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+#todo-modal button {
+    flex-grow: 1;
+    border: none;
+    border-radius: 4px;
+    color: var(--gray-50);
+    font-size: 1.3rem;
+    padding: 5px 0;
+    /* font-weight: 500; */
+}
+
+#todo-modal .save {
+    background-color: #86efac;
+}
+
+#todo-modal .cancel {
+    background-color: var(--red-700);
+}
