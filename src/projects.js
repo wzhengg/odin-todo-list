@@ -57,8 +57,9 @@ function selectProject(topic, id) {
     PubSub.publish(SELECT_PROJECT, selectedProject);
 }
 
-function createTodo(topic, name) {
-    const todo = new Todo(name, '', '', '', self.crypto.randomUUID());
+function createTodo(topic, data) {
+    const todo = new Todo(data.name, data.desc, data.date, data.priority, self.crypto.randomUUID());
+    // console.log(todo);
     addTodo(todo);
 }
 
