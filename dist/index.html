@@ -24,6 +24,36 @@
         <div id="todos"></div>
         <div id="create-todo">+</div>
     </div>
+
+    <dialog id="todo-modal">
+        <form>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" cols="30" rows="5"></textarea>
+            </div>
+            <div>
+                <label for="due-date">Due Date</label>
+                <input type="date" id="due-date" name="due-date">
+            </div>
+            <div>
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="high">High</option>
+                    <option value="normal" selected>Normal</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="save">Save</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+
     <script src="main.js"></script>
 </body>
 </html>
