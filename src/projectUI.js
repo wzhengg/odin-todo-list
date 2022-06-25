@@ -3,9 +3,9 @@ import {
     ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO,
     REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT
 } from './topics';
-import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoNameInput,
-    todoDescriptionInput, todoDueDateInput, todoPriorityInput, saveTodoButton,
-    cancelTodoButton
+import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoForm,
+    todoNameInput, todoDescriptionInput, todoDueDateInput, todoPriorityInput,
+    validateTodoFormButton, saveTodoButton, cancelTodoButton
 } from './dom';
 import highPriorityMarker from './img/high-priority-marker.svg';
 import normalPriorityMarker from './img/normal-priority-marker.svg';
@@ -48,6 +48,11 @@ function bindSaveTodoButton() {
 }
 
 function publishTodoData() {
+    if (!todoForm.checkValidity()) {
+        validateTodoFormButton.click();
+        return;
+    }
+
     closeTodoModal();
 
     const name = todoNameInput.value;
