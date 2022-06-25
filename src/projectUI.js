@@ -4,7 +4,8 @@ import {
     REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT
 } from './topics';
 import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoNameInput,
-    todoDescriptionInput, todoDueDateInput, todoPriorityInput
+    todoDescriptionInput, todoDueDateInput, todoPriorityInput, saveTodoButton,
+    cancelTodoButton
 } from './dom';
 
 const projectContainers = [];
@@ -18,6 +19,7 @@ function init() {
     PubSub.subscribe(REMOVE_TODO, removeTodo);
 
     bindCreateTodoButton();
+    bindCancelTodoButton();
 }
 
 function bindCreateTodoButton() {
@@ -34,6 +36,14 @@ function resetTodoForm() {
     todoDescriptionInput.value = '';
     todoDueDateInput.value = '';
     todoPriorityInput.selectedIndex = 1;
+}
+
+function bindCancelTodoButton() {
+    cancelTodoButton.addEventListener('click', closeTodoModal);
+}
+
+function closeTodoModal() {
+    todoModal.close();
 }
 
 function createProjectContainer(topic, project) {
