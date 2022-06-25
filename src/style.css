@@ -245,6 +245,10 @@ body {
     /* font-weight: 500; */
 }
 
+#todo-modal .validate {
+    display: none;
+}
+
 #todo-modal .save {
     background-color: #86efac;
 }
