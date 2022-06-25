@@ -19,6 +19,7 @@ function init() {
     PubSub.subscribe(REMOVE_TODO, removeTodo);
 
     bindCreateTodoButton();
+    bindSaveTodoButton();
     bindCancelTodoButton();
 }
 
@@ -36,6 +37,21 @@ function resetTodoForm() {
     todoDescriptionInput.value = '';
     todoDueDateInput.value = '';
     todoPriorityInput.selectedIndex = 1;
+}
+
+function bindSaveTodoButton() {
+    saveTodoButton.addEventListener('click', publishTodoData);
+}
+
+function publishTodoData() {
+    closeTodoModal();
+    
+    const name = todoNameInput.value;
+    const desc = todoDescriptionInput.value;
+    const date = todoDueDateInput.value;
+    const priority = todoPriorityInput.value;
+
+    PubSub.publish(CLICK_CREATE_TODO, { name: name, desc: desc, date: date, priority: priority });
 }
 
 function bindCancelTodoButton() {
