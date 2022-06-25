@@ -33,12 +33,12 @@ function promptProjectName() {
 
 function render(topic, project) {
     const projectDiv = document.createElement('div');
-    projectDiv.classList.add('project');
+    projectDiv.classList.add('project-label');
     projectDiv.dataset.id = project.id;
     projectDiv.addEventListener('click', publishClickedProject);
 
     const nameDiv = document.createElement('div');
-    nameDiv.classList.add('name');
+    nameDiv.classList.add('project-name');
     nameDiv.textContent = project.name;
 
     const removeButton = document.createElement('button');

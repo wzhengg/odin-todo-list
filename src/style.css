@@ -2,7 +2,7 @@
 
 :root {
     font-size: 16px;
-    --project-label-size: 1.4rem;
+    --sidebar-main-text-size: 1.5rem;
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
     --gray-200: #e5e7eb;
@@ -22,8 +22,9 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     display: grid;
-    grid-template-rows: 50px 1fr;
-    grid-template-columns: 300px 1fr;
+    /* grid-template-rows: 50px 1fr;
+    grid-template-columns: 350px 1fr; */
+    grid-template: 50px 1fr / 350px 1fr;
 }
 
 #header {
@@ -52,51 +53,51 @@ body {
 
 #sidebar > div:first-child {
     color: var(--gray-700);
-    font-size: 1.5rem;
+    font-size: var(--sidebar-main-text-size);
     font-weight: 500;
 }
 
-#sidebar .project,
-#sidebar #create-project {
-    padding: 5px;
+#sidebar .project-label,
+#create-project {
     color: var(--gray-600);
-    font-size: var(--project-label-size);
+    font-size: var(--sidebar-main-text-size);
     font-weight: 100;
+    padding: 5px;
     border-radius: 5px;
 }
 
-#sidebar .project {
+#sidebar .project-label {
     display: flex;
     align-items: center;
     column-gap: 5px;
 }
 
-#sidebar .project:hover,
-#sidebar #create-project:hover {
+#sidebar .project-label:hover,
+#create-project:hover {
     background-color: var(--gray-200);
 }
 
-#sidebar .name {
+#sidebar .project-name {
     flex-grow: 1;
     overflow: hidden;
 }
 
-#sidebar button {
+#sidebar .project-label > button {
     /* display: none; */
     background-color: var(--gray-100);
     color: var(--gray-400);
-    height: var(--project-label-size);
-    width: var(--project-label-size);
+    height: var(--sidebar-main-text-size);
+    width: var(--sidebar-main-text-size);
     border: none;
     border-radius: 4px;
 }
 
-#sidebar button:hover {
+#sidebar .project-label > button:hover {
     background-color: var(--red-700);
     color: var(--gray-100);
 }
 
-#sidebar #create-project {
+#create-project {
     text-align: center;
     color: var(--gray-400);
 }
@@ -110,33 +111,29 @@ body {
     padding: 10px 150px;
 }
 
-#main-section #title-container {
+#main-section > div:first-child {
     display: grid;
     place-content: center;
     padding: 20px 0;
 }
 
-#title-container > div {
+#project-title {
     color: var(--gray-700);
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: 1.6rem;
 }
 
 #todos {
     display: flex;
     flex-direction: column;
-    /* gap: 5px; */
 }
 
 #main-section .todo,
-#main-section #create-todo {
+#create-todo {
     padding: 10px;
     color: var(--gray-600);
     font-size: 1.4rem;
     font-weight: 100;
     border-radius: 10px;
-    /* background-color: var(--gray-100); */
-    /* box-shadow: 0 0 3px 3px var(--gray-100); */
 }
 
 #main-section .todo {
@@ -145,8 +142,7 @@ body {
     gap: 10px;
 }
 
-#main-section .name {
-    /* flex: 1; */
+#main-section .todo-name {
     overflow: hidden;
 }
 
@@ -177,11 +173,11 @@ body {
 }
 
 #main-section .todo:hover,
-#main-section #create-todo:hover {
+#create-todo:hover {
     background-color: var(--gray-100);
 }
 
-#main-section #create-todo {
+#create-todo {
     text-align: center;
     color: var(--gray-400);
 }

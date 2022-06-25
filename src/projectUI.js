@@ -45,8 +45,6 @@ function createProjectContainer(topic, project) {
 }
 
 function updateTitle(topic, project) {
-    // const title = projectTitleDiv.querySelector('div');
-    // title.textContent = project.name;
     projectTitleDiv.textContent = project.name;
 }
 
@@ -73,9 +71,6 @@ function removeContainer(topic, project) {
     if (projectContainers.length === 0) {
         clearProjectContainer();
         createTodoButton.style.display = 'none';
-
-        // const title = projectTitleDiv.querySelector('div');
-        // title.textContent = 'Create a project to add todos';
         projectTitleDiv.textContent = 'Create a project to add todos';
     }
 }
@@ -91,7 +86,7 @@ function renderTodo(topic, data) {
     img.alt = '';
 
     const todoName = document.createElement('div');
-    todoName.classList.add('name');
+    todoName.classList.add('todo-name');
     todoName.textContent = data.todo.name;
 
     // Fill later
