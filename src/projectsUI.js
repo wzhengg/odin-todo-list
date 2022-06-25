@@ -56,7 +56,7 @@ function publishClickedProject(e) {
     }
 
     let project = e.target;
-    if (project.classList.contains('name')) {
+    if (project.classList.contains('project-name')) {
         project = project.parentNode;
     }
 
