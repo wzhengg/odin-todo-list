@@ -10,6 +10,7 @@ import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoNameInput,
 import highPriorityMarker from './img/high-priority-marker.svg';
 import normalPriorityMarker from './img/normal-priority-marker.svg';
 import lowPriorityMarker from './img/low-priority-marker.svg';
+import { format, parse } from 'date-fns'
 
 const projectContainers = [];
 
@@ -51,7 +52,10 @@ function publishTodoData() {
 
     const name = todoNameInput.value;
     const desc = todoDescriptionInput.value;
-    const date = todoDueDateInput.value;
+    let date = '';
+    if (todoDueDateInput.value !== '') {
+        date = parse(todoDueDateInput.value, 'yyyy-MM-dd', new Date());
+    }
     const priority = todoPriorityInput.value;
 
     PubSub.publish(CLICK_CREATE_TODO, { name: name, desc: desc, date: date, priority: priority });
@@ -122,11 +126,13 @@ function renderTodo(topic, data) {
     todoName.classList.add('todo-name');
     todoName.textContent = data.todo.name;
 
-    // Fill later
     const date = document.createElement('div');
     date.classList.add('date');
-    // date.textContent = '6/21';
-    date.textContent = data.todo.dueDate;
+    if (data.todo.dueDate === '') {
+        date.textContent = 'no date';
+    } else {
+        date.textContent = format(data.todo.dueDate, 'MMM d yyyy');
+    }
 
     const spacer = document.createElement('div');
     spacer.classList.add('spacer');
