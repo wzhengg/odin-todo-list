@@ -59,7 +59,6 @@ function selectProject(topic, id) {
 
 function createTodo(topic, data) {
     const todo = new Todo(data.name, data.desc, data.date, data.priority, self.crypto.randomUUID());
-    // console.log(todo);
     addTodo(todo);
 }
 

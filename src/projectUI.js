@@ -7,6 +7,9 @@ import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoNameInput,
     todoDescriptionInput, todoDueDateInput, todoPriorityInput, saveTodoButton,
     cancelTodoButton
 } from './dom';
+import highPriorityMarker from './img/high-priority-marker.svg';
+import normalPriorityMarker from './img/normal-priority-marker.svg';
+import lowPriorityMarker from './img/low-priority-marker.svg';
 
 const projectContainers = [];
 
@@ -45,7 +48,7 @@ function bindSaveTodoButton() {
 
 function publishTodoData() {
     closeTodoModal();
-    
+
     const name = todoNameInput.value;
     const desc = todoDescriptionInput.value;
     const date = todoDueDateInput.value;
@@ -105,10 +108,15 @@ function renderTodo(topic, data) {
     todoDiv.classList.add('todo');
     todoDiv.dataset.id = data.todo.id;
 
-    // Fill later
     const img = new Image();
-    img.src = '';
-    img.alt = '';
+    if (data.todo.priority === 'high') {
+        img.src = highPriorityMarker;
+    } else if (data.todo.priority === 'low') {
+        img.src = lowPriorityMarker;
+    } else {
+        img.src = normalPriorityMarker;
+    }
+    img.alt = 'priority-marker';
 
     const todoName = document.createElement('div');
     todoName.classList.add('todo-name');
@@ -117,7 +125,8 @@ function renderTodo(topic, data) {
     // Fill later
     const date = document.createElement('div');
     date.classList.add('date');
-    date.textContent = '6/21';
+    // date.textContent = '6/21';
+    date.textContent = data.todo.dueDate;
 
     const spacer = document.createElement('div');
     spacer.classList.add('spacer');
