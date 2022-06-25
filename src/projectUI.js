@@ -25,6 +25,7 @@ function init() {
     bindCreateTodoButton();
     bindSaveTodoButton();
     bindCancelTodoButton();
+    preventSubmitOnEnter();
 }
 
 function bindCreateTodoButton() {
@@ -72,6 +73,14 @@ function bindCancelTodoButton() {
 
 function closeTodoModal() {
     todoModal.close();
+}
+
+function preventSubmitOnEnter() {
+    todoForm.addEventListener('keydown', e => {
+        if ((e.keyCode === 13 || e.which === 13) && e.target.type !== 'textarea') {
+            e.preventDefault();
+        }
+    });
 }
 
 function createProjectContainer(topic, project) {
