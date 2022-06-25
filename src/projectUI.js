@@ -3,7 +3,7 @@ import {
     ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO,
     REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT
 } from './topics';
-import { projectTitleDiv, todosDiv, createTodoButton } from './dom';
+import { projectTitleDiv, todosDiv, createTodoButton, todoModal } from './dom';
 
 const projectContainers = [];
 
@@ -18,9 +18,13 @@ function init() {
     bindCreateTodoButton();
 }
 
-
 function bindCreateTodoButton() {
-    createTodoButton.addEventListener('click', promptTodoName);
+    // createTodoButton.addEventListener('click', promptTodoName);
+    createTodoButton.addEventListener('click', openTodoModal);
+}
+
+function openTodoModal() {
+    todoModal.showModal();
 }
 
 function promptTodoName() {
