@@ -3,7 +3,9 @@ import {
     ADD_PROJECT, ADD_TODO, CLICK_CREATE_TODO, CLICK_REMOVE_TODO,
     REMOVE_PROJECT, REMOVE_TODO, SELECT_PROJECT
 } from './topics';
-import { projectTitleDiv, todosDiv, createTodoButton, todoModal } from './dom';
+import { projectTitleDiv, todosDiv, createTodoButton, todoModal, todoNameInput,
+    todoDescriptionInput, todoDueDateInput, todoPriorityInput
+} from './dom';
 
 const projectContainers = [];
 
@@ -19,26 +21,19 @@ function init() {
 }
 
 function bindCreateTodoButton() {
-    // createTodoButton.addEventListener('click', promptTodoName);
     createTodoButton.addEventListener('click', openTodoModal);
 }
 
 function openTodoModal() {
+    resetTodoForm()
     todoModal.showModal();
 }
 
-function promptTodoName() {
-    let name;
-
-    do {
-        name = prompt('Name of todo:');
-
-        if (name === null) {
-            return;
-        }
-    } while (name === '');
-
-    PubSub.publish(CLICK_CREATE_TODO, name);
+function resetTodoForm() {
+    todoNameInput.value = '';
+    todoDescriptionInput.value = '';
+    todoDueDateInput.value = '';
+    todoPriorityInput.selectedIndex = 1;
 }
 
 function createProjectContainer(topic, project) {
